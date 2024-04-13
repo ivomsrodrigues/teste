@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Include Tabulator CSS -->
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+
+    <style>
+    
+    	
+       .banner{
+       		width: 100%;
+            height: auto;
+            display: block;   
+            margin-bottom:50px;    		
+      	}
+      	
+      	body{
+      		background-color:#efefef;
+      		margin:0;
+      		padding:0;
+      	}
+      	
+      	#table-container {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+      	
+      	#example-table {
+            width: 100%;
+            max-width: 90%; /* Adjust the maximum width of the table as needed */
+        }
+
+    </style>
+</head>
+<body>
+<div class="banner">
+    <img src="./bannerV2.jpeg" alt="Banner" class="banner">
+</div>
+<div id="table-container">
+    <div id="example-table"></div>
+</div>
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+
+<script type="text/javascript">
+
+			var tabledata = [
+				{curso:"ME", UC:"PISID", turno:"01789TP01",turma:"MEA1",inscritos:"30",diasemana:"SEX",aulainicio:"18:00:00", aulafim:"19:30:00",auladata:"16-03-2024",característicasSala:"Salas Aulas Licenciatura",salaatribuida:"C2.04",semanaano:"4",semanasemestre:"2"},
+				{curso:"ME", UC:"POO", turno:"01789TP02",turma:"PLC1",inscritos:"50",diasemana:"SEG",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"14-03-2024",característicasSala:"BYOD",salaatribuida:"LabRedes",semanaano:"5",semanasemestre:"2"},
+				{curso:"IGE", UC:"IA", turno:"01789TP03",turma:"PLC4",inscritos:"15",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"11-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"4",semanasemestre:"5"},
+				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"50",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"12-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"1",semanasemestre:"3"},
+				{curso:"ME", UC:"PISID", turno:"01789TP01",turma:"MEA1",inscritos:"30",diasemana:"SEX",aulainicio:"18:00:00", aulafim:"19:30:00",auladata:"16-03-2024",característicasSala:"Salas Aulas Licenciatura",salaatribuida:"C2.04",semanaano:"4",semanasemestre:"2"},
+				{curso:"ME", UC:"POO", turno:"01789TP02",turma:"PLC1",inscritos:"50",diasemana:"SEG",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"14-03-2024",característicasSala:"BYOD",salaatribuida:"LabRedes",semanaano:"5",semanasemestre:"2"},
+				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"15",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"11-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"4",semanasemestre:"5"},
+				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"50",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"12-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"1",semanasemestre:"3"}
+			];
+
+
+			var rowMenu = [
+    {
+        label:"<i class='fas fa-user'></i> Change Name",
+        action:function(e, row){
+            row.update({name:"Steve Bobberson"});
+        }
+    },
+    {
+        label:"<i class='fas fa-check-square'></i> Select Row",
+        action:function(e, row){
+            row.select();
+        }
+    },
+    {
+        separator:true,
+    },
+    {
+        label:"Admin Functions",
+        menu:[
+            {
+                label:"<i class='fas fa-trash'></i> Delete Row",
+                action:function(e, row){
+                    row.delete();
+                }
+            },
+            {
+                label:"<i class='fas fa-ban'></i> Disabled Option",
+                disabled:true,
+            },
+        ]
+    }
+]
+
+//define column header menu as column visibility toggle
+var headerMenu = function(){
+    var menu = [];
+    var columns = this.getColumns();
+
+    for(let column of columns){
+
+        //create checkbox element using font awesome icons
+        let icon = document.createElement("i");
+        icon.classList.add("fas");
+        icon.classList.add(column.isVisible() ? "fa-check-square" : "fa-square");
+
+        //build label
+        let label = document.createElement("span");
+        let title = document.createElement("span");
+
+        title.textContent = " " + column.getDefinition().title;
+
+        label.appendChild(icon);
+        label.appendChild(title);
+
+        //create menu item
+        menu.push({
+            label:label,
+            action:function(e){
+                //prevent menu closing
+                e.stopPropagation();
+
+                //toggle current column visibility
+                column.toggle();
+
+                //change menu item icon
+                if(column.isVisible()){
+                    icon.classList.remove("fa-square");
+                    icon.classList.add("fa-check-square");
+                }else{
+                    icon.classList.remove("fa-check-square");
+                    icon.classList.add("fa-square");
+                }
+            }
+        });
+    }
+
+   return menu;
+};
+
+    var table = new Tabulator("#example-table", {
+        // specify options here
+    	layout:"fitDatafill",      //fit columns to width of table
+    	pagination:"local",
+
+        rowContextMenu: rowMenu,
+		paginationSize:5,
+		paginationSizeSelector:[5, 10, 20, 40],
+		movableColumns:true,
+		paginationCounter:"rows",
+        columns: [ //Define Table Columns
+            {title:"Curso", field:"curso",hozAlign:"center", sorter:"string", width:100, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Unidade Curricular", field:"UC",hozAlign:"center", sorter:"string", sortable:true, width:170, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Turno", field:"turno",hozAlign:"center", sorter:"string", sortable:true, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Turma", field:"turma",hozAlign:"center", sorter:"string", width:120,headerFilter:"input", headerMenu:headerMenu},
+            {title:"Inscritos", field:"inscritos",hozAlign:"center", sorter:"number", headerFilter:"input", headerMenu:headerMenu},
+            {title:"Dia da semana", field:"diasemana",hozAlign:"center", sorter:"string", width:140, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Hora início da aula", field:"aulainicio",hozAlign:"center", sorter:"time", headerFilter:"input", headerMenu:headerMenu},
+            {title:"Hora fim da aula", field:"aulafim",hozAlign:"center", sorter:"time", headerFilter:"input", headerMenu:headerMenu},
+            {title:"Data da aula", field:"auladata",hozAlign:"center", sorter:"date", headerFilter:"input", headerMenu:headerMenu},
+            {title:"Características da sala pedida para a aula", field:"característicasSala",hozAlign:"center", sorter:"string",width:200, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Sala Atribuída", field:"salaatribuida",hozAlign:"center", sorter:"string", width:150, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Semana do Ano", field:"semanaano",hozAlign:"center", sorter:"number", width:150, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Semana do Semestre", field:"semanasemestre",hozAlign:"center", sorter:"number", width:170, headerFilter:"input", headerMenu:headerMenu}
+        ],
+        data: tabledata
+    });
+
+</script>
+</body>
+
+</html>
