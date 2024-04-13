@@ -49,14 +49,14 @@
 <script type="text/javascript">
 
 			var tabledata = [
-				{curso:"ME", UC:"PISID", turno:"01789TP01",turma:"MEA1",inscritos:"30",diasemana:"SEX",aulainicio:"18:00:00", aulafim:"19:30:00",auladata:"16-03-2024",característicasSala:"Salas Aulas Licenciatura",salaatribuida:"C2.04",semanaano:"4",semanasemestre:"2"},
-				{curso:"ME", UC:"POO", turno:"01789TP02",turma:"PLC1",inscritos:"50",diasemana:"SEG",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"14-03-2024",característicasSala:"BYOD",salaatribuida:"LabRedes",semanaano:"5",semanasemestre:"2"},
-				{curso:"IGE", UC:"IA", turno:"01789TP03",turma:"PLC4",inscritos:"15",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"11-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"4",semanasemestre:"5"},
-				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"50",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"12-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"1",semanasemestre:"3"},
-				{curso:"ME", UC:"PISID", turno:"01789TP01",turma:"MEA1",inscritos:"30",diasemana:"SEX",aulainicio:"18:00:00", aulafim:"19:30:00",auladata:"16-03-2024",característicasSala:"Salas Aulas Licenciatura",salaatribuida:"C2.04",semanaano:"4",semanasemestre:"2"},
-				{curso:"ME", UC:"POO", turno:"01789TP02",turma:"PLC1",inscritos:"50",diasemana:"SEG",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"14-03-2024",característicasSala:"BYOD",salaatribuida:"LabRedes",semanaano:"5",semanasemestre:"2"},
-				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"15",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"11-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"4",semanasemestre:"5"},
-				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"50",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"12-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01",semanaano:"1",semanasemestre:"3"}
+				{curso:"ME", UC:"PISID", turno:"01789TP01",turma:"MEA1",inscritos:"30",diasemana:"SEX",aulainicio:"18:00:00", aulafim:"19:30:00",auladata:"16-03-2024",característicasSala:"Salas Aulas Licenciatura",salaatribuida:"C2.04"},
+				{curso:"ME", UC:"POO", turno:"01789TP02",turma:"PLC1",inscritos:"50",diasemana:"SEG",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"14-03-2024",característicasSala:"BYOD",salaatribuida:"LabRedes"},
+				{curso:"IGE", UC:"IA", turno:"01789TP03",turma:"PLC4",inscritos:"15",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"11-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01"},
+				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"50",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"12-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01"},
+				{curso:"ME", UC:"PISID", turno:"01789TP01",turma:"MEA1",inscritos:"30",diasemana:"SEX",aulainicio:"18:00:00", aulafim:"19:30:00",auladata:"16-03-2024",característicasSala:"Salas Aulas Licenciatura",salaatribuida:"C2.04"},
+				{curso:"ME", UC:"POO", turno:"01789TP02",turma:"PLC1",inscritos:"50",diasemana:"SEG",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"14-03-2024",característicasSala:"BYOD",salaatribuida:"LabRedes"},
+				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"15",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"11-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01"},
+				{curso:"IGE", UC:"PCD", turno:"01789TP03",turma:"PLC4",inscritos:"50",diasemana:"QUI",aulainicio:"20:00:00", aulafim:"21:30:00",auladata:"12-03-2024",característicasSala:"Salas Aulas Mestrado",salaatribuida:"D1.01"}
 			];
 
 
@@ -160,9 +160,7 @@ var headerMenu = function(){
             {title:"Hora fim da aula", field:"aulafim",hozAlign:"center", sorter:"time", headerFilter:"input", headerMenu:headerMenu},
             {title:"Data da aula", field:"auladata",hozAlign:"center", sorter:"date", headerFilter:"input", headerMenu:headerMenu},
             {title:"Características da sala pedida para a aula", field:"característicasSala",hozAlign:"center", sorter:"string",width:200, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Sala Atribuída", field:"salaatribuida",hozAlign:"center", sorter:"string", width:150, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Semana do Ano", field:"semanaano",hozAlign:"center", sorter:"number", width:150, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Semana do Semestre", field:"semanasemestre",hozAlign:"center", sorter:"number", width:170, headerFilter:"input", headerMenu:headerMenu}
+            {title:"Sala Atribuída", field:"salaatribuida",hozAlign:"center", sorter:"string", width:150, headerFilter:"input", headerMenu:headerMenu}
         ],
         data: tabledata
     });
