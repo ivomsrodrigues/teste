@@ -118,8 +118,17 @@
 
             return menu;
         };
-
-		 var columns = [
+        
+        var table = new Tabulator("#example-table", {
+            layout:"fitDataFill",      //fit columns to width of table
+            pagination:"local",
+            rowContextMenu: rowMenu,
+            	paginationSize:5,
+            	paginationSizeSelector:[5, 10, 25, 50, 100],
+            	movableColumns:true,
+            	paginationCounter:"rows",
+            	autoColumns: false,
+            columns: [
                 {title:"Edifício", field:"edificio", hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
                 {title:"Nome Sala", field:"nomeSala", hozAlign:"center", sorter:"string", sortable:true, widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
                 {title:"Capacidade Normal", field:"capacidadeNormal", hozAlign:"center", sorter:"number", sortable:true, headerFilter:"input", headerMenu:headerMenu},
@@ -155,19 +164,8 @@
             	{title:"Sala De Aulas Normal", field:"salaAulasNormal",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
             	{title:"Videoconferência", field:"videoConferencia",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
             	{title:"Átrio", field:"atrio",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu}
-        ];
-        
-        var table = new Tabulator("#example-table", {
-            layout:"fitDataFill",      //fit columns to width of table
-            pagination:"local",
-            rowContextMenu: rowMenu,
-            paginationSize:5,
-            paginationSizeSelector:[5, 10, 25, 50, 100],
-            movableColumns:true,
-            paginationCounter:"rows",
-            autoColumns: false,
-            columns: columns,
-        	data: tabledata,
+           ],
+        	data: tabledata
     	});
 
 </script>
