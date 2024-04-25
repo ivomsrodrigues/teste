@@ -8,8 +8,7 @@
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
 
     <style>
-    
-    	
+		    	
        .banner{
        		width: 100%;
             height: auto;
@@ -34,6 +33,30 @@
             width: 100%;
             max-width: 90%; /* Adjust the maximum width of the table as needed */
         }
+		
+		#button-container {
+			flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: right; /* Center horizontally */
+            align-items: right; /* Center vertically */
+			margin-bottom: 5px;
+			
+		}  
+        
+        #downloadButton {
+            margin-right: 4px; /* Adiciona um espaço entre a tabela e o botão */
+            cursor: pointer; /* Altera o cursor para a forma de uma mão */
+        }
+		
+		#downloadCSVButton {
+			margin-right: 80px; /* Adiciona um espaço entre a tabela e o botão */
+            cursor: pointer; /* Altera o cursor para a forma de uma mão */
+		}
+        
+        .sem-borda {
+			border: none;
+			outline: none; /* Para remover a borda de foco */
+   		 }
 
     </style>
 </head>
@@ -41,7 +64,11 @@
 <div class="banner">
     <img src="https://github.com/ivomsrodrigues/teste/blob/main/bannerV2.jpg?raw=true" alt="Banner" class="banner">
 </div>
-<div id="table-container">
+<div id="button-container">
+    <button class="sem-borda" id="downloadButton" outline="none"><img src="C:\Users\ivo.rodrigues\Downloads\arquivo-json.png" width="30" height="30"></button>
+	<button class="sem-borda" id="downloadCSVButton" outline="none"><img src="C:\Users\ivo.rodrigues\Downloads\csv.jpg" width="30" height="30"></button>
+</div>
+<div id="table-container">	
     <div id="example-table"></div>
 </div>
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
@@ -50,7 +77,6 @@
 
 			var tabledata = [
 			];
-
 
 			var rowMenu = [
     {
@@ -143,22 +169,113 @@ var headerMenu = function(){
             paginationCounter:"rows",
             autoColumns: false,
         columns: [ //Define Table Columns
-            {title:"Curso", field:"curso",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Unidade Curricular", field:"UC",hozAlign:"center", sorter:"string", sortable:true, widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Turno", field:"turno",hozAlign:"center", sorter:"string", sortable:true,widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Turma", field:"turma",hozAlign:"center", sorter:"string", widthGrow:1,headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Inscritos", field:"inscritos",hozAlign:"center", sorter:"number",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Dia da semana", field:"diasemana",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Hora início da aula", field:"aulainicio",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Hora fim da aula", field:"aulafim",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Data da aula", field:"auladata",hozAlign:"center", sorter:"date",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Características da sala pedida para a aula", field:"característicasSala",hozAlign:"center", sorter:"string",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Sala Atribuída", field:"salaatribuida",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Semana do Ano", field:"semanaano",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true},
-            {title:"Semana do Semestre", field:"semanasemestre",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor:true}
+            {title:"Curso", field:"curso",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Unidade Curricular", field:"UC",hozAlign:"center", sorter:"string", sortable:true, widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Turno", field:"turno",hozAlign:"center", sorter:"string", sortable:true,widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Turma", field:"turma",hozAlign:"center", sorter:"string", widthGrow:1,headerFilter:"input", headerMenu:headerMenu},
+            {title:"Inscritos", field:"inscritos",hozAlign:"center", sorter:"number",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Dia da semana", field:"diasemana",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Hora início da aula", field:"aulainicio",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Hora fim da aula", field:"aulafim",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Data da aula", field:"auladata",hozAlign:"center", sorter:"date",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Características da sala pedida para a aula", field:"característicasSala",hozAlign:"center", sorter:"string",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Sala Atribuída", field:"salaatribuida", hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, formatter: linkFormatter},
+            {title:"Semana do Ano", field:"semanaano",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            {title:"Semana do Semestre", field:"semanasemestre",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu}
         ],
         data: tabledata
     });
+    
+   
+    
+    function linkFormatter(cell, formatterParams, onRendered) {
+        var value = cell.getValue();
+        if (value) {
+            var link = document.createElement("a");
+            link.innerText = value;
+            link.href = "formaulassubstituicao.html?sala=" + encodeURIComponent(value);
+            link.target = "_self";
+            return link;
+        }
+        return "";
+    }
+    
+    
+	document.getElementById('downloadButton').addEventListener('click', function() {
+            saveTableDataAsJSON();
+        });
+
+        function saveTableDataAsJSON() {
+            var jsonData = table.getData(); // Obter dados da tabela
+            var jsonStr = JSON.stringify(jsonData); // Converter dados em string JSON
+
+            var blob = new Blob([jsonStr], { type: "application/json" }); // Criar um blob com os dados JSON
+
+            // Criar um link para download
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "table_data.json"; // Definir o nome do arquivo para download
+
+            // Simular um clique no link para iniciar o download
+            a.click();
+
+            // Limpar
+            URL.revokeObjectURL(a.href);
+		}
+
+	 document.getElementById('downloadCSVButton').addEventListener('click', function() {
+        saveTableDataAsCSV();
+    });
+
+    // Função para exportar os dados da tabela para CSV
+    function saveTableDataAsCSV() {
+        var csv = "\ufeff"; // BOM (Byte Order Mark) para garantir a codificação correta no Excel
+        var rows = table.getData(true);
+        var columnDefinitions = table.getColumnDefinitions();
+
+        // Cabeçalhos CSV
+        for (var i = 0; i < columnDefinitions.length; i++) {
+            csv += '"' + columnDefinitions[i].title + '"';
+            if (i < columnDefinitions.length - 1) {
+                csv += ',';
+            }
+        }
+        csv += '\n';
+
+        // Linhas CSV
+        for (var j = 0; j < rows.length; j++) {
+            for (var k = 0; k < columnDefinitions.length; k++) {
+                var cellValue = rows[j][columnDefinitions[k].field];
+                csv += '"' + (cellValue !== undefined ? cellValue : '') + '"';
+                if (k < columnDefinitions.length - 1) {
+                    csv += ',';
+                }
+            }
+            csv += '\n';
+        }
+
+        // Criar um blob com os dados CSV
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+
+        // Criar um link para download
+        var a = document.createElement("a");
+        if (window.navigator.msSaveOrOpenBlob) { // Para o Internet Explorer
+            window.navigator.msSaveOrOpenBlob(blob, "table_data.csv");
+        } else { // Para outros navegadores
+            a.href = URL.createObjectURL(blob);
+            a.download = "table_data.csv";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    }
+
+</script>
+</body>
+
+</html>
+
+
 
 </script>
 </body>
