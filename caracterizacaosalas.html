@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Include Tabulator CSS -->
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    
+    <!-- Include FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+       .banner {
+            width: 100%;
+            height: auto;
+            display: block;   
+            margin-bottom: 50px;    		
+        }
+      	
+      	body {
+            background-color: #efefef;
+            margin: 0;
+            padding: 0;
+        }
+      	
+      	#table-container {
+            flex: 1; /* Take up remaining space */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+      	
+      	#example-table {
+            width: 100%;
+            max-width: 90%; /* Adjust the maximum width of the table as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="https://github.com/ivomsrodrigues/teste/blob/main/bannerSalas.jpg?raw=true" alt="Banner" class="banner">
+    </div>
+    <div id="table-container">
+        <div id="example-table"></div>
+    </div>
+    <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+    <script>
+        var tabledata = [
+        ];
+
+        var rowMenu = [
+            {
+                label:"<i class='fas fa-user'></i> Change Name",
+                action:function(e, row){
+                    row.update({name:"Steve Bobberson"});
+                }
+            },
+            {
+                label:"<i class='fas fa-check-square'></i> Select Row",
+                action:function(e, row){
+                    row.select();
+                }
+            },
+            {
+                separator:true,
+            },
+            {
+                label:"Admin Functions",
+                menu:[
+                    {
+                        label:"<i class='fas fa-trash'></i> Delete Row",
+                        action:function(e, row){
+                            row.delete();
+                        }
+                    },
+                    {
+                        label:"<i class='fas fa-ban'></i> Disabled Option",
+                        disabled:true,
+                    },
+                ]
+            }
+        ];
+
+        // Define column header menu as column visibility toggle
+        var headerMenu = function() {
+            var menu = [];
+            var columns = this.getColumns();
+
+            for(let column of columns) {
+                let icon = document.createElement("i");
+                icon.classList.add("fas");
+                icon.classList.add(column.isVisible() ? "fa-check-square" : "fa-square");
+
+                let label = document.createElement("span");
+                let title = document.createElement("span");
+
+                title.textContent = " " + column.getDefinition().title;
+
+                label.appendChild(icon);
+                label.appendChild(title);
+
+                menu.push({
+                    label:label,
+                    action:function(e){
+                        e.stopPropagation();
+                        column.toggle();
+                        if(column.isVisible()){
+                            icon.classList.remove("fa-square");
+                            icon.classList.add("fa-check-square");
+                        }else{
+                            icon.classList.remove("fa-check-square");
+                            icon.classList.add("fa-square");
+                        }
+                    }
+                });
+            }
+
+            return menu;
+        };
+
+		 var columns = [
+                {title:"Edifício", field:"edificio", hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+                {title:"Nome Sala", field:"nomeSala", hozAlign:"center", sorter:"string", sortable:true, widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+                {title:"Capacidade Normal", field:"capacidadeNormal", hozAlign:"center", sorter:"number", sortable:true, headerFilter:"input", headerMenu:headerMenu},
+                {title:"Capacidade Exame", field:"capacidadeExame", hozAlign:"center", sorter:"number", widthGrow:1,headerFilter:"input", headerMenu:headerMenu},
+                {title:"Número Características", field:"numeroCaracteristicas", hozAlign:"center",widthGrow:1, sorter:"number", headerFilter:"input", headerMenu:headerMenu},
+                {title:"Anfiteatro Aulas", field:"anfiteatroAulas", hozAlign:"center",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+                {title:"Apoio Técnico Eventos", field:"apoioTecnicoEventos", hozAlign:"center",headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+                {title:"Arq 1", field:"arq1", hozAlign:"center", headerFilter:"input",widthGrow:1,headerMenu:headerMenu},
+                {title:"Arq 2", field:"arq2", hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+                {title:"Arq 3", field:"arq3", hozAlign:"center", headerFilter:"input",widthGrow:1,headerMenu:headerMenu},
+                {title:"Arq 4", field:"arq4",hozAlign:"center", headerFilter:"input",widthGrow:1,headerMenu:headerMenu},
+            	{title:"Arq 5", field:"arq5",hozAlign:"center", headerFilter:"input",widthGrow:1,headerMenu:headerMenu},
+            	{title:"Arq 6", field:"arq6",hozAlign:"center", headerFilter:"input",widthGrow:1,headerMenu:headerMenu},
+            	{title:"Arq 9", field:"arq9",hozAlign:"center", headerFilter:"input",widthGrow:1,headerMenu:headerMenu},
+            	{title:"BYOD", field:"byod",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Focus Group", field:"focusGroup",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Horário Sala", field:"horarioSala",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Arquitectura de Computadores I", field:"labComputadoresI",hozAlign:"center",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            	{title:"Laboratório de Arquitectura de Computadores II", field:"labComputadoresII",hozAlign:"center",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
+            	{title:"Laboratório de Bases de Engenharia", field:"labBasesEng",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Electrónica", field:"labElectronica",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Informática", field:"labInformatica",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Jornalismo", field:"labJornalismo",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Redes de Computadores I", field:"labRedesI",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Redes de Computadores II", field:"labRedesII",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Laboratório de Telecomunicações", field:"labTelecomunicacoes",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala Aulas Mestrado", field:"salaAulaMestrado",hozAlign:"center",headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala Aulas Mestrado Plus", field:"salaAulaMestradoPlus",hozAlign:"center",headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala NEE", field:"salaNEE",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala Provas", field:"salaProvas",hozAlign:"center",headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala Reunião", field:"salaReuniao",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala De Arquitectura", field:"salaArq",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Sala De Aulas Normal", field:"salaAulasNormal",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Videoconferência", field:"videoConferencia",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu},
+            	{title:"Átrio", field:"atrio",hozAlign:"center", headerFilter:"input",widthGrow:1, headerMenu:headerMenu}
+        ];
+        
+        var table = new Tabulator("#example-table", {
+            layout:"fitDataFill",      //fit columns to width of table
+            pagination:"local",
+            rowContextMenu: rowMenu,
+            paginationSize:5,
+            paginationSizeSelector:[5, 10, 25, 50, 100],
+            movableColumns:true,
+            paginationCounter:"rows",
+            autoColumns: false,
+            columns: columns,
+        	data: tabledata,
+    	});
+
+</script>
+</body>
+
+</html>
