@@ -190,19 +190,16 @@ var headerMenu = function(){
    
     
     function linkFormatter(cell, formatterParams, onRendered) {
-    var value = cell.getValue();
-    if (value) {
-        var link = document.createElement("a");
-        link.innerText = value;
-        // Altere o URL do link para apontar para o HTML no GitHub
-        link.href = "https://github.com/ivomsrodrigues/teste/blob/main/formaulassubstituicao.html";
-        // Adicione o valor da célula como um parâmetro de consulta, se necessário
-        link.href += "?sala=" + encodeURIComponent(value);
-        // Defina o destino do link como "_blank" para abrir em uma nova aba
-        link.target = "_blank";
-        return link;
-    }
-    return "";
+        var value = cell.getValue();
+        if (value) {
+            var link = document.createElement("a");
+            link.innerText = value;
+            link.href = "formaulassubstituicao.html?sala=" + encodeURIComponent(value);
+            link.target = "_self";
+            return link;
+        }
+        return "";
+    }
     
     
 	document.getElementById('downloadButton').addEventListener('click', function() {
