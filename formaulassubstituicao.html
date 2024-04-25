@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Include FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+       .banner {
+            width: 100%;
+            height: auto;
+            display: block;   
+            margin-bottom: 50px;    		
+        }
+      	
+      	body {
+            background-color: #efefef;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px; /* Largura máxima do container */
+            margin: 0 auto; /* Centraliza o contêiner na página */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinhar o conteúdo no topo */
+            min-height: 100vh; /* Altura mínima da página */
+            padding-top: 20px; /* Adicionar espaço acima do formulário */
+            padding-bottom: 20px; /* Adicionar espaço abaixo do formulário */
+        }
+        
+        form {
+            width: 100%;
+            max-width: 600px; /* Define uma largura máxima para o formulário */
+            padding: 20px; /* Adiciona espaçamento interno */
+            background-color: #ffffff; /* Adiciona um fundo branco */
+            border-radius: 8px; /* Adiciona cantos arredondados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra */
+        }
+
+        /* Estilo para a tabela */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilo para o campo de pesquisa */
+        .search-input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Estilo para o contêiner da tabela */
+        .table-container {
+            max-height: 200px; /* Altura máxima da tabela */
+            overflow-y: auto; /* Adiciona barra vertical */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="banner">
+    <img src="./aulasubstituicao.jpeg" alt="Banner" class="banner">
+</div>
+<div class="container">
+    <form id="substituicao-form" action="#" method="post">
+        <h2>Formulário para Alocação de Aula de Substituição</h2>
+        <label for="aula_a_mudar">Aula a Mudar:</label>
+        <input type="text" id="aula_a_mudar" name="aula_a_mudar" required><br><br>
+
+        <label>Regras para Alocação da Aula de Substituição:</label><br><br>
+
+        <label for="excluir_periodos" id="excluir_periodos">Períodos a Excluir:</label><br>
+        <input type="checkbox" id="manhas" name="manhas"> Manhãs
+        <input type="checkbox" id="tardes" name="tardes"> Tardes
+        <input type="checkbox" id="noite" name="noite"> Noite<br><br>
+
+        <label for="periodos_possiveis">Períodos Possíveis para Alocação:</label><br>
+        <input type="text" id="periodos_possiveis" name="periodos_possiveis" placeholder="Especificar períodos"><br><br>
+
+        <label for="preferencia_sala">Preferência de Sala:</label><br>
+        <!-- Campo de pesquisa -->
+        <input type="text" id="search-input" class="search-input" placeholder="Pesquisar salas"><br>
+
+        <!-- Tabela de salas preferenciais -->
+        <div class="table-container">
+            <table id="salas-table">
+                <!-- As salas serão inseridas aqui -->
+            </table>
+        </div><br><br>
+
+        <label for="salas_nao_aceitaveis">Salas Não Aceitáveis:</label><br>
+        <input type="text" id="salas_nao_aceitaveis" class="search-input" name="salas_nao_aceitaveis" placeholder="Especificar salas"><br><br>
+
+        <!-- Tabela de salas não aceitáveis -->
+        <div class="table-container">
+            <table id="salas-nao-aceitaveis-table">
+                <!-- As salas não aceitáveis serão inseridas aqui -->
+            </table>
+        </div><br><br>
+
+        <input type="submit" value="Submeter">
+    </form>
+</div>
+
+<script src="dadosSalas.js"></script>
+<script>
+    // Gerar tabela para as salas preferenciais
+    var salasTable = document.getElementById('salas-table');
+    var row, cell, count = 0;
+
+    nomesSalas.forEach(function(sala) {
+        if (count % 5 === 0) {
+            row = salasTable.insertRow();
+        }
+        cell = row.insertCell();
+        cell.innerHTML = '<input type="checkbox" name="salas" value="' + sala + '"> ' + sala;
+        count++;
+    });
+
+    // Adicionar funcionalidade de pesquisa para as salas preferenciais
+    document.getElementById('search-input').addEventListener('input', function() {
+        var searchValue = this.value.trim().toLowerCase();
+        var rows = salasTable.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            var found = false;
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.trim().toLowerCase();
+                if (cellText.startsWith(searchValue)) {
+                    found = true;
+                    break;
+                }
+            }
+            rows[i].style.display = found ? '' : 'none';
+        }
+    });
+
+    // Gerar tabela para as salas não aceitáveis
+    var salasNaoAceitaveisTable = document.getElementById('salas-nao-aceitaveis-table');
+    var rowNA, cellNA, countNA = 0;
+
+    nomesSalas.forEach(function(sala) {
+        if (countNA % 5 === 0) {
+            rowNA = salasNaoAceitaveisTable.insertRow();
+        }
+        cellNA = rowNA.insertCell();
+        cellNA.innerHTML = '<input type="checkbox" name="salas-nao-aceitaveis" value="' + sala + '"> ' + sala;
+        countNA++;
+    });
+
+    // Adicionar funcionalidade de pesquisa para as salas não aceitáveis
+    document.getElementById('salas_nao_aceitaveis').addEventListener('input', function() {
+        var searchValueNA = this.value.trim().toLowerCase();
+        var rowsNA = salasNaoAceitaveisTable.getElementsByTagName('tr');
+        for (var i = 0; i < rowsNA.length; i++) {
+            var cellsNA = rowsNA[i].getElementsByTagName('td');
+            var foundNA = false;
+            for (var j = 0; j < cellsNA.length; j++) {
+                var cellTextNA = cellsNA[j].textContent.trim().toLowerCase();
+                if (cellTextNA.startsWith(searchValueNA)) {
+                    foundNA = true;
+                    break;
+                }
+            }
+            rowsNA[i].style.display = foundNA ? '' : 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
