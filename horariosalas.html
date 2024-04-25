@@ -169,19 +169,19 @@ var headerMenu = function(){
             paginationCounter:"rows",
             autoColumns: false,
         columns: [ //Define Table Columns
-            {title:"Curso", field:"curso",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Unidade Curricular", field:"UC",hozAlign:"center", sorter:"string", sortable:true, widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Turno", field:"turno",hozAlign:"center", sorter:"string", sortable:true,widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Turma", field:"turma",hozAlign:"center", sorter:"string", widthGrow:1,headerFilter:"input", headerMenu:headerMenu},
-            {title:"Inscritos", field:"inscritos",hozAlign:"center", sorter:"number",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Dia da semana", field:"diasemana",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Hora início da aula", field:"aulainicio",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Hora fim da aula", field:"aulafim",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Data da aula", field:"auladata",hozAlign:"center", sorter:"date",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Características da sala pedida para a aula", field:"característicasSala",hozAlign:"center", sorter:"string",widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Sala Atribuída", field:"salaatribuida", hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, formatter: linkFormatter},
-            {title:"Semana do Ano", field:"semanaano",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu},
-            {title:"Semana do Semestre", field:"semanasemestre",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu}
+            {title:"Curso", field:"curso",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Unidade Curricular", field:"UC",hozAlign:"center", sorter:"string", sortable:true, widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Turno", field:"turno",hozAlign:"center", sorter:"string", sortable:true,widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Turma", field:"turma",hozAlign:"center", sorter:"string", widthGrow:1,headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Inscritos", field:"inscritos",hozAlign:"center", sorter:"number",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Dia da semana", field:"diasemana",hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Hora início da aula", field:"aulainicio",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Hora fim da aula", field:"aulafim",hozAlign:"center", sorter:"time",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Data da aula", field:"auladata",hozAlign:"center", sorter:"date",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Características da sala pedida para a aula", field:"característicasSala",hozAlign:"center", sorter:"string",widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Sala Atribuída", field:"salaatribuida", hozAlign:"center", sorter:"string", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, formatter: linkFormatter, editor: true},
+            {title:"Semana do Ano", field:"semanaano",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true},
+            {title:"Semana do Semestre", field:"semanasemestre",hozAlign:"center", sorter:"number", widthGrow:1, headerFilter:"input", headerMenu:headerMenu, editor: true}
         ],
         data: tabledata
     });
